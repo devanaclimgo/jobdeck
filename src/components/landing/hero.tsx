@@ -23,10 +23,17 @@ export function Hero() {
         </p>
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
           <Button asChild size="lg" className="w-full sm:w-auto">
-            <Link href="/sign-up">{t.common.getStarted}</Link>
-            <ArrowRight className="size-4" />
+            <Link href="/sign-up">
+              {t.common.getStarted}
+              <ArrowRight className="size-4" />
+            </Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="w-full sm:w-auto"
+          >
             <Link href="/sign-in">{t.common.signIn}</Link>
           </Button>
         </div>

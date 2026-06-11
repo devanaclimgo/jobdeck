@@ -22,8 +22,11 @@ export function CtaSection() {
             {t.landing.ctaSubtitle}
           </p>
           <Button asChild size="lg" className="mt-8">
-            <Link href="/sign-up"> {t.common.getStarted}</Link>
-            <ArrowRight className="size-4" />
+            <Link href="/sign-up">
+              {" "}
+              {t.common.getStarted}
+              <ArrowRight className="size-4" />
+            </Link>
           </Button>
         </div>
       </div>
