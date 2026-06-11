@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { Toaster } from '@/components/ui/sonner'
@@ -28,10 +29,12 @@ export default function RootLayout({
       className={`dark ${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="bg-background font-sans antialiased">
-        <LanguageProvider>
-          {children}
-          <Toaster position="bottom-right" />
-        </LanguageProvider>
+        <ClerkProvider>
+          <LanguageProvider>
+            {children}
+            <Toaster position="bottom-right" />
+          </LanguageProvider>
+        </ClerkProvider>
       </body>
     </html>
   )
