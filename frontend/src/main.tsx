@@ -1,9 +1,9 @@
-import { LandingHeader } from '@/components/landing/landing-header'
-import { Hero } from '@/components/landing/hero'
-import { Features } from '@/components/landing/features'
-import { HowItWorks } from '@/components/landing/how-it-works'
-import { CtaSection } from '@/components/landing/cta-section'
-import { LandingFooter } from '@/components/landing/landing-footer'
+import { LandingHeader } from '../src/components/landing/landing-header'
+import { Hero } from '../src/components/landing/hero'
+import { Features } from '../src/components/landing/features'
+import { HowItWorks } from '../src/components/landing/how-it-works'
+import { CtaSection } from '../src/components/landing/cta-section'
+import { LandingFooter } from '../src/components/landing/landing-footer'
 
 export default function Page() {
   return (
