@@ -20,10 +20,12 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
+    "baseUrl": "./*",
+    "ignoreDeprecations": "6.0",
+
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*", "vite-env.d.ts"]
     }
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src", "vite-env.d.ts"]
 }
