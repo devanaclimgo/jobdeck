@@ -37,7 +37,7 @@ export function Navbar() {
             <DropdownMenuContent align="end" className="w-44">
               <DropdownMenuLabel>alex@jobdeck.app</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild variant="destructive">
+              <DropdownMenuItem variant="destructive">
                 <Link to="/" />
                 <LogOut className="size-4" />
                 {t.common.signOut}

@@ -19,7 +19,7 @@ export function CtaSection() {
           <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">
             {t.landing.ctaSubtitle}
           </p>
-          <Button asChild size="lg" className="mt-8">
+          <Button size="lg" className="mt-8">
             <Link to="/sign-up"> {t.common.getStarted}</Link>
             <ArrowRight className="size-4" />
           </Button>
