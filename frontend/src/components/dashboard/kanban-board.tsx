@@ -10,11 +10,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { useJobs, type JobInput } from '@/contexts/JobsContext'
-import { useTranslation } from '@/hooks/useTranslation'
-import { STATUS_ORDER, type Job, type JobStatus } from '@/lib/types'
-import { computeStats } from '@/lib/stats'
+} from '../../components/ui/alert-dialog'
+import { useJobs, type JobInput } from '../../contexts/JobsContext'
+import { useTranslation } from '../../hooks/useTranslation'
+import { STATUS_ORDER, type Job, type JobStatus } from '../../lib/types'
+import { computeStats } from '../../lib/stats'
 import { StatsCards } from './stats-cards'
 import { FilterBar, type Filters } from './filter-bar'
 import { KanbanColumn } from './kanban-column'

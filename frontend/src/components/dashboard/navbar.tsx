@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { KanbanSquare, LogOut, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,10 +8,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Logo } from "@/components/logo";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { useTranslation } from "@/hooks/useTranslation";
+} from "../../components/ui/dropdown-menu";
+import { Logo } from "../../components/logo";
+import { LanguageSwitcher } from "../../components/language-switcher";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export function Navbar() {
   const { t } = useTranslation();
@@ -30,11 +30,8 @@ export function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <LanguageSwitcher />
           <DropdownMenu>
-            <DropdownMenuTrigger
-              render={
-                <Button variant="outline" size="icon" aria-label="Account" />
-              }
-            >
+            <DropdownMenuTrigger>
+              <Button variant="outline" size="icon" aria-label="Account" />
               <User className="size-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-44">

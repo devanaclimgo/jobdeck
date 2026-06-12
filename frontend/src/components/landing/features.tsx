@@ -5,7 +5,7 @@ import {
   Layers,
   Smartphone,
 } from "lucide-react";
-import { useTranslation } from "@/hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export function Features() {
   const { t } = useTranslation();

@@ -9,12 +9,12 @@ function GitHubIcon({ className }: { className?: string }) {
     </svg>
   )
 }
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Logo } from '@/components/logo'
-import { LanguageSwitcher } from '@/components/language-switcher'
-import { useTranslation } from '@/hooks/useTranslation'
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Label } from '../../components/ui/label'
+import { Logo } from '../../components/logo'
+import { LanguageSwitcher } from '../../components/language-switcher'
+import { useTranslation } from '../../hooks/useTranslation'
 
 function GoogleIcon({ className }: { className?: string }) {
   return (

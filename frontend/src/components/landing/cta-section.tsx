@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/hooks/useTranslation";
+import { Button } from "../../components/ui/button";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export function CtaSection() {
   const { t } = useTranslation();
