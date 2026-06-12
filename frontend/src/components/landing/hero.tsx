@@ -13,9 +13,6 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 top-[-10rem] -z-10 mx-auto h-[28rem] max-w-3xl rounded-full bg-primary/20 blur-[120px]"
       />
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 pt-20 pb-16 text-center sm:pt-28">
-        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-xs font-medium text-muted-foreground">
-          {t.common.tagline}
-        </span>
         <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-6xl">
           {t.landing.heroTitle}
         </h1>
