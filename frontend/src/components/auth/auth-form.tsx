@@ -51,6 +51,24 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
     setTimeout(() => navigate("/dashboard"), 700);
   }
 
+  function getErrorMessage(data: any, isPortuguese: boolean) {
+    if (data.errors?.email?.includes("Email has already been taken")) {
+      return isPortuguese
+        ? "Este e-mail já está em uso."
+        : "This email is already in use.";
+    }
+
+    if (data.error === "Invalid email/name or password") {
+      return isPortuguese
+        ? "E-mail ou senha inválidos."
+        : "Invalid email or password.";
+    }
+
+    return isPortuguese
+      ? "Ocorreu um erro inesperado."
+      : "An unexpected error occurred.";
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -65,7 +83,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Request failed");
+        throw new Error(getErrorMessage(data, t.common.locale === "pt"));
       }
 
       if (isSignIn) {
