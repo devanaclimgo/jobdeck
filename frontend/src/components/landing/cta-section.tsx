@@ -20,7 +20,7 @@ export function CtaSection() {
             {t.landing.ctaSubtitle}
           </p>
           <Button size="lg" className="mt-8">
-            <Link to="/sign-up"> {t.common.getStarted}</Link>
+            <Link to="/signup"> {t.common.getStarted}</Link>
             <ArrowRight className="size-4" />
           </Button>
         </div>

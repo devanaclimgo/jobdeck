@@ -13,10 +13,10 @@ export function LandingHeader() {
         <div className="flex items-center gap-2 sm:gap-3">
           <LanguageSwitcher />
           <Button variant="ghost" className="rounded-full" size="sm">
-            <Link to="/sign-in">{t.common.signIn}</Link>
+            <Link to="/signin">{t.common.signIn}</Link>
           </Button>
           <Button size="sm" className="rounded-full">
-            <Link to="/sign-up">{t.common.getStarted}</Link>
+            <Link to="/signup">{t.common.getStarted}</Link>
           </Button>
         </div>
       </div>
