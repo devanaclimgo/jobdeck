@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { AlertCircle, ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -40,8 +40,11 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const location = useLocation();
 
   const isSignIn = mode === "signin";
+  const justRegistered = location.state?.justRegistered;
 
   function goToDashboard(method: string) {
     setLoading(method);
@@ -51,6 +54,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setError(null);
     setLoading("email");
 
     try {
@@ -64,9 +68,13 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
         throw new Error(data.error || "Request failed");
       }
 
-      navigate("/dashboard");
+      if (isSignIn) {
+        navigate("/dashboard");
+      } else {
+        navigate("/signin", { state: { justRegistered: true } });
+      }
     } catch (error) {
-      alert(error instanceof Error ? error.message : "Connection error");
+      setError(error instanceof Error ? error.message : "Connection error");
     } finally {
       setLoading(null);
     }
@@ -96,6 +104,13 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
               {isSignIn ? t.auth.signInSubtitle : t.auth.signUpSubtitle}
             </p>
           </div>
+
+          {justRegistered && (
+            <div className="mt-6 flex items-center gap-2.5 rounded-lg border border-green-500/30 bg-green-500/[0.08] px-3.5 py-2.5 text-sm text-green-600 dark:text-green-400 animate-in fade-in slide-in-from-top-1 duration-200">
+              <CheckCircle2 className="size-4 shrink-0" />
+              Account created! Sign in to continue.
+            </div>
+          )}
 
           <div className="mt-8 flex flex-col gap-3">
             <Button
@@ -135,6 +150,16 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
             </span>
             <span className="h-px flex-1 bg-border" />
           </div>
+
+          {error && (
+            <div
+              role="alert"
+              className="flex items-center gap-2.5 rounded-lg border border-destructive/30 bg-destructive/8 px-3.5 py-2.5 text-sm text-destructive animate-in fade-in slide-in-from-top-1 duration-200"
+            >
+              <AlertCircle className="size-4 shrink-0" />
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
