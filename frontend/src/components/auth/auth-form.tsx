@@ -154,7 +154,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
           {error && (
             <div
               role="alert"
-              className="flex items-center gap-2.5 rounded-lg border border-destructive/30 bg-destructive/8 px-3.5 py-2.5 text-sm text-destructive animate-in fade-in slide-in-from-top-1 duration-200"
+              className="flex items-center gap-2.5 rounded-lg border border-destructive/30 bg-destructive/8 px-3.5 py-2.5 text-sm text-destructive animate-in fade-in slide-in-from-top-1 duration-200 mb-4"
             >
               <AlertCircle className="size-4 shrink-0" />
               {error}
@@ -162,17 +162,20 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
           )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="name">{t.auth.name}</Label>
-              <Input
-                id="name"
-                type="name"
-                value={name}
-                required
-                placeholder={t.auth.namePlaceholder}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+            {!isSignIn && (
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="name">{t.auth.name}</Label>
+
+                <Input
+                  id="name"
+                  type="text"
+                  value={name}
+                  required
+                  placeholder={t.auth.namePlaceholder}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            )}
             <div className="flex flex-col gap-2">
               <Label htmlFor="email">{t.auth.email}</Label>
               <Input
