@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
   before_action if: :devise_controller?
 
-  protected
+  include ActionController::Cookies
 end
