@@ -4,17 +4,15 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    token = request.env['warden-jwt_auth.token']
 
     if resource.persisted?
       render json: {
         message: 'Logged in successfully',
         user: resource,
-        token: token
       }, status: :ok
     else
       render json: {
-        error: 'Invalid email/username or password'
+        error: 'Invalid email/name or password'
       }, status: :unauthorized
     end
   end
@@ -23,7 +21,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     if current_user
       render json: { user: current_user }, status: :ok
     else
-      render json: { error: "Invalid email/username or password" }, status: :unauthorized
+      render json: { error: "Invalid email/name or password" }, status: :unauthorized
     end
   end
 end
