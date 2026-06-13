@@ -15,6 +15,7 @@ export const en = {
     search: 'Search jobs...',
     optional: 'optional',
     required: 'required',
+    locale: "en",
   },
   landing: {
     heroTitle: 'Track your job search without the chaos.',

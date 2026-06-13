@@ -17,6 +17,7 @@ export const ptBR: TranslationSchema = {
     search: 'Buscar vagas...',
     optional: 'opcional',
     required: 'obrigatório',
+    locale: "pt"
   },
   landing: {
     heroTitle: 'Acompanhe sua busca por emprego sem o caos.',
