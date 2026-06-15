@@ -1,88 +1,107 @@
 import { createContext } from "react";
 import type { Job, JobStatus } from "../lib/types";
-import { sampleJobs } from "../lib/sample-data";
 import { useState, useEffect, useCallback, useMemo, useContext } from "react";
-
-const STORAGE_KEY = "jobdeck-jobs";
+import {
+  createJob,
+  getJobs,
+  updateJob as updateJobRequest,
+  deleteJob as deleteJobRequest,
+} from "../api/job-routes/routes";
 
 export type JobInput = Omit<Job, "id" | "createdAt" | "updatedAt">;
 
 type JobsContextValue = {
   jobs: Job[];
   loading: boolean;
-  addJob: (input: JobInput) => Job;
-  updateJob: (id: string, input: JobInput) => void;
-  deleteJob: (id: string) => void;
-  moveJob: (id: string, status: JobStatus) => void;
+  addJob: (input: JobInput) => Promise<Job>;
+  updateJob: (id: string, input: JobInput) => Promise<void>;
+  deleteJob: (id: string) => Promise<void>;
+  moveJob: (id: string, status: JobStatus) => Promise<void>;
 };
 
 const JobsContext = createContext<JobsContextValue | null>(null);
-
-function nowIso() {
-  return new Date().toISOString();
-}
 
 export function JobsProvider({ children }: { children: React.ReactNode }) {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate an initial load and hydrate from localStorage.
-    const timer = setTimeout(() => {
+    async function loadJobs() {
       try {
-        const stored = window.localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          setJobs(JSON.parse(stored) as Job[]);
-        } else {
-          setJobs(sampleJobs);
-        }
-      } catch {
-        setJobs(sampleJobs);
+        const response = await getJobs();
+
+        if (!response.ok) throw new Error();
+
+        const data = await response.json();
+
+        setJobs(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
-    }, 600);
-    return () => clearTimeout(timer);
+    }
+
+    loadJobs();
   }, []);
 
-  useEffect(() => {
-    if (loading) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs));
-    } catch {
-      // ignore write errors
-    }
-  }, [jobs, loading]);
+  const addJob = useCallback(async (input: JobInput) => {
+    const response = await createJob(input);
 
-  const addJob = useCallback((input: JobInput) => {
-    const job: Job = {
-      ...input,
-      id: `job-${crypto.randomUUID()}`,
-      createdAt: nowIso(),
-      updatedAt: nowIso(),
-    };
+    if (!response.ok) {
+      throw new Error("Failed to create job");
+    }
+
+    const job = await response.json();
+
     setJobs((prev) => [job, ...prev]);
+
     return job;
   }, []);
 
-  const updateJob = useCallback((id: string, input: JobInput) => {
-    setJobs((prev) =>
-      prev.map((job) =>
-        job.id === id ? { ...job, ...input, updatedAt: nowIso() } : job,
-      ),
-    );
+  const updateJob = useCallback(async (id: string, input: JobInput) => {
+    const response = await updateJobRequest(id, input);
+
+    if (!response.ok) {
+      throw new Error("Failed to update job");
+    }
+
+    const updatedJob = await response.json();
+
+    setJobs((prev) => prev.map((job) => (job.id === id ? updatedJob : job)));
   }, []);
 
-  const deleteJob = useCallback((id: string) => {
+  const deleteJob = useCallback(async (id: string) => {
+    const response = await deleteJobRequest(id);
+
+    if (!response.ok) {
+      throw new Error("Failed to delete job");
+    }
+
     setJobs((prev) => prev.filter((job) => job.id !== id));
   }, []);
 
-  const moveJob = useCallback((id: string, status: JobStatus) => {
-    setJobs((prev) =>
-      prev.map((job) =>
-        job.id === id ? { ...job, status, updatedAt: nowIso() } : job,
-      ),
-    );
-  }, []);
+  const moveJob = useCallback(
+    async (id: string, status: JobStatus) => {
+      const job = jobs.find((j) => j.id === id);
+
+      if (!job) return;
+
+      const response = await updateJobRequest(id, {
+        ...job,
+        status,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to move job");
+      }
+
+      const updatedJob = await response.json();
+
+      setJobs((prev) => prev.map((job) => (job.id === id ? updatedJob : job)));
+    },
+    [jobs],
+  );
 
   const value = useMemo<JobsContextValue>(
     () => ({ jobs, loading, addJob, updateJob, deleteJob, moveJob }),
