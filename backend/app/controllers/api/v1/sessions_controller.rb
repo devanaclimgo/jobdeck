@@ -1,6 +1,7 @@
 class Api::V1::SessionsController < Devise::SessionsController  
   respond_to :json
-
+  skip_before_action :require_no_authentication, only: [:create]
+  
   private
 
   def respond_with(resource, _opts = {})
@@ -17,11 +18,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     end
   end
 
-  def respond_to_on_create
-    if current_user
-      render json: { user: current_user }, status: :ok
-    else
-      render json: { error: "Invalid email/name or password" }, status: :unauthorized
-    end
+  def respond_to_on_destroy
+    render json: { message: 'Logged out successfully' }, status: :ok
   end
 end
