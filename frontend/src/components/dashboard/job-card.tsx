@@ -5,12 +5,12 @@ import {
   MapPin,
   Pencil,
   Trash2,
-} from 'lucide-react'
-import { Button } from '../../components/ui/button'
-import { Badge } from '../../components/ui/badge'
-import { useTranslation } from '../../hooks/useTranslation'
-import { formatDate } from '../../lib/format'
-import type { Job } from '../../lib/types'
+} from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { Badge } from "../../components/ui/badge";
+import { useTranslation } from "../../hooks/useTranslation";
+import { formatDate } from "../../lib/format";
+import type { Job } from "../../lib/types";
 
 export function JobCard({
   job,
@@ -20,25 +20,25 @@ export function JobCard({
   onDragEnd,
   isDragging,
 }: {
-  job: Job
-  onEdit: (job: Job) => void
-  onDelete: (job: Job) => void
-  onDragStart: (job: Job) => void
-  onDragEnd: () => void
-  isDragging: boolean
+  job: Job;
+  onEdit: (job: Job) => void;
+  onDelete: (job: Job) => void;
+  onDragStart: (job: Job) => void;
+  onDragEnd: () => void;
+  isDragging: boolean;
 }) {
-  const { t, language } = useTranslation()
+  const { t, language } = useTranslation();
 
   return (
     <article
       draggable
       onDragStart={(e) => {
-        e.dataTransfer.effectAllowed = 'move'
-        onDragStart(job)
+        e.dataTransfer.effectAllowed = "move";
+        onDragStart(job);
       }}
       onDragEnd={onDragEnd}
       className={`group cursor-grab rounded-xl border border-border bg-card p-3 shadow-sm transition-all hover:border-primary/40 hover:shadow-md active:cursor-grabbing ${
-        isDragging ? 'opacity-40' : 'opacity-100'
+        isDragging ? "opacity-40" : "opacity-100"
       }`}
     >
       <div className="flex items-start justify-between gap-2">
@@ -52,15 +52,10 @@ export function JobCard({
         </div>
         <div className="flex shrink-0 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
           {job.jobUrl && (
-            <Button
-              variant="ghost"
-              size="icon-xs"
-              aria-label={t.job.openLink}
-              render={
-                <a href={job.jobUrl} target="_blank" rel="noreferrer" />
-              }
-            >
-              <ExternalLink className="size-3.5" />
+            <Button variant="ghost" size="icon-xs" aria-label={t.job.openLink}>
+              <a href={job.jobUrl} target="_blank" rel="noreferrer">
+                <ExternalLink className="size-3.5" />
+              </a>
             </Button>
           )}
           <Button
@@ -117,5 +112,5 @@ export function JobCard({
         </div>
       )}
     </article>
-  )
+  );
 }
