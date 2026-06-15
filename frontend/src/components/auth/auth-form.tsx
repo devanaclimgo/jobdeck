@@ -7,7 +7,7 @@ import { Label } from "../../components/ui/label";
 import { Logo } from "../../components/logo";
 import { LanguageSwitcher } from "../../components/language-switcher";
 import { useTranslation } from "../../hooks/useTranslation";
-import { signIn, signUp } from "../../api/routes";
+import { signIn, signUp } from "../../api/auth-routes/routes";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
