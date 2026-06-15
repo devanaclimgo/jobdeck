@@ -72,7 +72,7 @@ export function KanbanColumn({
         }`}
       >
         {jobs.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-lg p-6 text-center">
+          <div className="flex flex-1 flex-col items-center justify-start gap-2 rounded-lg p-6 text-center">
             <Inbox className="size-6 text-muted-foreground/60" />
             <p className="text-xs font-medium text-muted-foreground">
               {t.empty.columnTitle}
