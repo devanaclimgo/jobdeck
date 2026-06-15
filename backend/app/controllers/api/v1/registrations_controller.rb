@@ -1,7 +1,13 @@
 class Api::V1::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
+  before_action :configure_sign_up_params, only: [:create]
+
   private
+
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
 
   def sign_up(resource_name, resource)
     # Don't sign in the user after sign up
@@ -21,6 +27,4 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
       }, status: :unprocessable_entity
     end
   end
-
-  before_action :configure_sign_up_params, only: [:create]
 end
