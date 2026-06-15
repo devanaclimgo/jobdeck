@@ -15,6 +15,7 @@ devise_for :users,
   namespace :api do
     namespace :v1 do
       get :me, to: 'users#me'
+      resources :jobs
     end
   end
 
