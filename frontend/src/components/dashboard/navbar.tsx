@@ -17,6 +17,7 @@ interface NavbarProps {
   onMenuClick: () => void;
 }
 
+// temporarily remove Menu icon - no sidebar for now
 export function Navbar({ onMenuClick }: NavbarProps) {
   const { t } = useTranslation();
   return (
